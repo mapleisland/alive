@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>alive</title>
+  <script src="/jquery.min.js"></script>
+  <style>
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="list">
+    <li>http://sogou.com</li>
+    <li>http://baidu.com</li>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $("#list li").each(function() {
+        let url = $(this).text();
+        
+        $.post("/alive", {
+          url: url
+        }, res => {
+          console.log(res);
+          if(res == 200) {
+            $(this).html(url + " - <b>status: " + res + "</b>");
+          }
+          else {
+            $(this).html(url + " - <b class='red'>status: " + res + "</b>");
+          }
+        })
+
+      })
+    })
+
+
+  </script>
+</body>
+</html>
